@@ -1,8 +1,8 @@
-# ShorldersOfGiants
+# SholdersOfGiants
 
 Thanks to many folks over the years we have tools that can help us improve our privacy.  However, it seems that there have not been many attempts at making computer privacy easy for people with limited computer knowledge.  Sadly the state of affairs is there are tons of docs for GPG and all of them could be considered essential reading... but there there are also tons of docs that are antiquated or just not clear enough.  One unfortunate side effect of google is that it is saturated with beginner howto's that all repeat the same thing, and don't give enough information to be helpful. 
 
-This repo gpg-ShorldersOfGiants is my attempt to reduce the amount of confusion by providing a small list of guides and tools that can help you get started.
+This repo gpg-SholdersOfGiants is my attempt to reduce the amount of confusion by providing a small list of guides and tools that can help you get started.
 
 ## Missing from most howtos
 
@@ -31,10 +31,13 @@ Notice that the [sks server search ](http://pool.sks-keyservers.net/pks/lookup?o
    * Also note that you will need outgoing access to port 11371 on your firewall to use the `gpg --keyserver hkp://` commands.
 
 # Docker image usage
-Please note this isn't ideal security, this is just for convenience to create a backup of your gpg keys.  Please build this image yourself using a secure connection, I am not responsible for any thing that comes from the use of this repo, you are so be cautious and careful
+Please note this isn't ideal security, this is just for convenience to create a backup of your gpg keys.  Please build this image yourself using a secure connection, I am not responsible for any thing that comes from the use of this repo, you are!  So be cautious and careful
 
 1. Have docker installed ( www.docker.com )
-2. Create the docker container  ( either `make docker` or `docker build gpg2qr:latest . ` )
-3. Export your keys to a PDF in ~/.gnupg ( docker run --rm --name gpg  -it -v /dev/urandom:/dev/random -v ~/.gnupg:/root/.gnupg ${NAME}:latest gpg2qrcode.sh keyname basename-of-pdf )
-4. Print and and store the print out somewhere safe where only you have access
+1. Create the docker container  ( either `make docker` or `docker build gpg2qr:latest . ` )
+1. Find your secret key you want to backup `gpg -K`
+   * ( This should produce something like `sec   2048R/ABCDEFG 2016-02-21 [expires: 2018-01-06]`  use `ABCDEFG` )
+   * If you are using the long form it woudl be `0x` followed by 16 chars, rather than the default 8 chars 
+1. Export your keys to a PDF in ~/.gnupg ( docker run --rm --name gpg  -it -v /dev/urandom:/dev/random -v ~/.gnupg:/root/.gnupg gpg2qr:latest gpg2qrcode.sh ${KEYNAME} ${basename-of-pdf} )
+1. Print and and store the print out somewhere safe where only you have access
     * Only pint on your own printer, not a work printer or a public printer ( there are hard drives and back ups of what was printed )
