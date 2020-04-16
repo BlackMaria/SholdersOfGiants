@@ -1,7 +1,12 @@
 NAME = gpg2qr
 EPOCH=$(shell date +%s )
 
-docker: 
+BRANCH=$(shell git rev-parse --abbrev-ref HEAD )
+
+git:
+	git push origin ${BRANCH}
+
+docker:
 	docker build -t ${NAME}:${EPOCH} .
 	@docker rmi ${NAME}:latest  >& /dev/null || echo ${NAME}:latest created
 	docker tag ${NAME}:${EPOCH} ${NAME}:latest
